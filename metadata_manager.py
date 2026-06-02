@@ -57,3 +57,13 @@ def add_entry(entry: dict, path: Path) -> None:
         writer.writerow(entry)
 
 
+def load_entries(path: Path) -> list[dict]:
+    file_exists = path.exists()
+    if not file_exists:
+        raise FileNotFoundError(f"Metadata file not found: {path}")
+    with open(path, mode="r", newline="") as file:
+        reader = csv.DictReader(file)
+        return list(reader)
+    
+
+    
