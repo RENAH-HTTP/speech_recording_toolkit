@@ -1,4 +1,5 @@
 import re
+import csv
 from pathlib import Path
 
 FIELDS = {
@@ -46,7 +47,13 @@ def validate_entry(entry: dict) -> list[str]:
 
 def add_entry(entry: dict, path: Path) -> None:
     errors = validate_entry(entry)  
+    file_exists = path.exists()
     if len(errors) > 0:
         raise ValueError(f"Entry validation failed: {errors}")
-    
+    with open(path, mode="a", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=FIELDS.keys())
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow(entry)
+
 
