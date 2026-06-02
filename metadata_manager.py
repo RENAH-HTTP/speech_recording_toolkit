@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 
 FIELDS = {
     "speaker_id":   None,
@@ -29,16 +30,23 @@ def validate_file_name(name: str) -> bool:
     else:
         return True
 
-def validate_entry(field: dict) -> list[str]:
-    entry_list = []
+def validate_entry(entry: dict) -> list[str]:
+    errors = []
     for key in FIELDS.keys():
-        if key not in field:
-            entry_list.append(f"Missing field: {key}")
+        if key not in entry:
+            errors.append(f"Missing field: {key}")
         else:
-            value = field[key]            
-            allowed = FIELDS[key]       
+            value = entry[key]
+            allowed = FIELDS[key]
             if allowed is None:
                 pass
             elif value not in allowed:
-                entry_list.append(f"Invalid value for {key}: {value}")
-    return entry_list
+                errors.append(f"Invalid value for {key}: {value}")
+    return errors
+
+def add_entry(entry: dict, path: Path) -> None:
+    errors = validate_entry(entry)  
+    if len(errors) > 0:
+        raise ValueError(f"Entry validation failed: {errors}")
+    
+
