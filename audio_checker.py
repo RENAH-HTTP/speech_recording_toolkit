@@ -1,4 +1,5 @@
 from pathlib import Path
+from unittest import result
 from pydub import AudioSegment
 from pydub.silence import detect_leading_silence
 from metadata_manager import validate_file_name
@@ -38,7 +39,11 @@ def check_format_consistency(infos: list[dict]) -> dict:
                 "file_name": info["file_name"],
                 "mismatched_fields": mismatches
             })
-    result["consistent"] = len(result["outliers"]) == 0
+    # if there are no outliers, then the files are consistent
+    if len(result["outliers"]) == 0:
+        result["consistent"] = True
+    else:
+        result["consistent"] = False
     return result
 
 
