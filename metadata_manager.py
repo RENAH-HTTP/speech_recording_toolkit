@@ -9,12 +9,12 @@ FIELDS = {
     "age_range":    {"child", "teen", "18-29", "30-44", "45-59", "60+"},
     "gender":       {"female", "male", "nonbinary", "unspecified"},
     "mic_type":     {"condenser", "dynamic", "lavalier", "headset", "shotgun", "usb"},
-    "gain_db":      {0, 6, 12, 18, 24, 30, 36, 42, 48},
+    "gain_db":      {"0", "6", "12", "18", "24", "30", "36", "42", "48"},
     "room_id":      {"booth_a", "booth_b", "studio_1", "studio_2", "field"},
     "session_date": None,
     "file_name":    None,
-    "sample_rate":  {44100, 48000, 96000, 192000},
-    "bit_depth":    {16, 24, 32},
+    "sample_rate":  {"44100", "48000", "96000", "192000"},
+    "bit_depth":    {"16", "24", "32"},
     "duration_sec": None,
     "qc_status":    {"pass", "flagged", "rejected", "pending"},
     "notes":        None,
@@ -39,7 +39,11 @@ def validate_entry(entry: dict) -> list[str]:
         else:
             value = entry[key]
             allowed = FIELDS[key]
-            if allowed is None:
+            if key == "file_name":
+                filename_is_valid = validate_file_name(value)
+                if filename_is_valid == False:
+                    errors.append(f"Invalid filename format: {value}")
+            elif allowed is None:
                 pass
             elif value not in allowed:
                 errors.append(f"Invalid value for {key}: {value}")
@@ -56,7 +60,6 @@ def add_entry(entry: dict, path: Path) -> None:
             writer.writeheader()
         writer.writerow(entry)
 
-
 def load_entries(path: Path) -> list[dict]:
     file_exists = path.exists()
     if not file_exists:
@@ -64,6 +67,15 @@ def load_entries(path: Path) -> list[dict]:
     with open(path, mode="r", newline="") as file:
         reader = csv.DictReader(file)
         return list(reader)
-    
 
-    
+def find_duplicates(path: Path) -> list[str]:
+    entries = load_entries(path)
+    seen = set()
+    duplicates = []
+    for entry in entries:
+        file_name = entry.get("file_name")
+        if file_name in seen:
+            duplicates.append(file_name)
+        else:
+            seen.add(file_name)
+    return duplicates
