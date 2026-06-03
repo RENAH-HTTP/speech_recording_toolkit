@@ -19,8 +19,8 @@ This toolkit aims to spot those problems early on, at the recording stage, where
 ## What's included
 
 - **metadata_manager.py** — validates and stores recording metadata
-- **audio_checker.py** — batch QC across a folder of recordings: format consistency, loudness, clipping, silence, and filename validation.
-- **report_generator.py** — aggregates metadata and QC results into a summary report (JSON export)
+- **audio_checker.py** — batch quality control across a folder of recordings: format consistency, loudness, clipping, silence, and filename validation.
+- **report_generator.py** — put toghetert the metadata and QC results into a summary report (JSON export)
 - **app.py** — desktop UI wrapping all three modules (PyWebView)
 
 > the **app.py** and ui was coded entirely with AI, while on the backend I wrote each definition by myself. 
@@ -58,4 +58,4 @@ Python 3.14 · SQLite · pydub · PyWebView
 
 ## About
 
-I am an audio student which has a passion for analysing sound: from sppech, to fft algorhythms, to emotion detection, to turning everyday objects and scenes into logical systems. Over the past 7 months I have taugh myself python from scratch (starting with AI assistance, then learning to write it properly myself over the last 4 months) and built tools alongside my other projects. I was an intern and now continue to colaborate now actively with msm-studios and Streamsoft in Berlin and I aspire to learn and actively explore machine learning for audio because that is the direction I plan to take my bachelor thesis.
+I am an audio student which has a passion for analysing sound: from speech, to fft algorhythms, to emotion detection, to turning everyday objects and scenes into logical systems. Over the past 7 months I have taugh myself python from scratch (starting with AI assistance, then learning to write it properly myself over the last 4 months) and built tools alongside my other projects. I was an intern and now continue to colaborate now actively with msm-studios and Streamsoft in Berlin and I aspire to learn and actively explore machine learning for audio because that is the direction I plan to take my bachelor thesis.
