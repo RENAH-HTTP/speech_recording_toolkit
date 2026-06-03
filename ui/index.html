@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech Recording Toolkit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top navigation bar (ai-coustics style) -->
+    <nav class="navbar">
+        <div class="brand">
+            <span class="brand-mark">◗</span>
+            <span class="brand-name">speech-toolkit</span>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="metadata">Metadata</button>
+            <button class="nav-tab" data-tab="audio">QC Check</button>
+            <button class="nav-tab" data-tab="report">Report</button>
+        </div>
+
+        <div class="nav-actions">
+            <button class="pill pill-ghost">Docs</button>
+            <button class="pill pill-solid">New Session</button>
+        </div>
+    </nav>
+
+    <div class="grain"></div>
+
+    <main class="content">
+
+        <!-- ===================== METADATA TAB ===================== -->
+        <section id="tab-metadata" class="tab-panel active">
+
+            <div class="columns">
+
+                <!-- Left: the entry form -->
+                <div class="card form-card">
+                    <h2 class="card-title">New Entry</h2>
+
+                    <form id="entry-form">
+                        <div class="field-group">
+                            <label for="speaker_id">Speaker ID</label>
+                            <input type="text" id="speaker_id" placeholder="001">
+                        </div>
+
+                        <div class="field-group">
+                            <label for="language">Language</label>
+                            <select id="language">
+                                <option value="">—</option>
+                                <option value="en">en</option>
+                                <option value="de">de</option>
+                                <option value="fr">fr</option>
+                                <option value="ro">ro</option>
+                                <option value="es">es</option>
+                                <option value="it">it</option>
+                                <option value="nl">nl</option>
+                                <option value="pt">pt</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="accent">Accent</label>
+                            <select id="accent">
+                                <option value="">—</option>
+                                <option value="general">general</option>
+                                <option value="northern">northern</option>
+                                <option value="southern">southern</option>
+                                <option value="regional">regional</option>
+                                <option value="non-native">non-native</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="age_range">Age Range</label>
+                            <select id="age_range">
+                                <option value="">—</option>
+                                <option value="child">child</option>
+                                <option value="teen">teen</option>
+                                <option value="18-29">18-29</option>
+                                <option value="30-44">30-44</option>
+                                <option value="45-59">45-59</option>
+                                <option value="60+">60+</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender">
+                                <option value="">—</option>
+                                <option value="female">female</option>
+                                <option value="male">male</option>
+                                <option value="nonbinary">nonbinary</option>
+                                <option value="unspecified">unspecified</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="mic_type">Mic Type</label>
+                            <select id="mic_type">
+                                <option value="">—</option>
+                                <option value="condenser">condenser</option>
+                                <option value="dynamic">dynamic</option>
+                                <option value="lavalier">lavalier</option>
+                                <option value="headset">headset</option>
+                                <option value="shotgun">shotgun</option>
+                                <option value="usb">usb</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="gain_db">Gain (dB)</label>
+                            <select id="gain_db">
+                                <option value="">—</option>
+                                <option value="0">0</option>
+                                <option value="6">6</option>
+                                <option value="12">12</option>
+                                <option value="18">18</option>
+                                <option value="24">24</option>
+                                <option value="30">30</option>
+                                <option value="36">36</option>
+                                <option value="42">42</option>
+                                <option value="48">48</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="room_id">Room</label>
+                            <select id="room_id">
+                                <option value="">—</option>
+                                <option value="booth_a">booth_a</option>
+                                <option value="booth_b">booth_b</option>
+                                <option value="studio_1">studio_1</option>
+                                <option value="studio_2">studio_2</option>
+                                <option value="field">field</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="session_date">Session Date</label>
+                            <input type="date" id="session_date">
+                        </div>
+
+                        <div class="field-group">
+                            <label for="file_name">File Name</label>
+                            <input type="text" id="file_name" placeholder="speaker_001_en_session01.wav">
+                        </div>
+
+                        <div class="field-group">
+                            <label for="sample_rate">Sample Rate</label>
+                            <select id="sample_rate">
+                                <option value="">—</option>
+                                <option value="44100">44100 Hz</option>
+                                <option value="48000">48000 Hz</option>
+                                <option value="96000">96000 Hz</option>
+                                <option value="192000">192000 Hz</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="bit_depth">Bit Depth</label>
+                            <select id="bit_depth">
+                                <option value="">—</option>
+                                <option value="16">16-bit</option>
+                                <option value="24">24-bit</option>
+                                <option value="32">32-bit</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="duration_sec">Duration (s)</label>
+                            <input type="text" id="duration_sec" placeholder="5.3">
+                        </div>
+
+                        <div class="field-group">
+                            <label for="qc_status">QC Status</label>
+                            <select id="qc_status">
+                                <option value="">—</option>
+                                <option value="pass">pass</option>
+                                <option value="flagged">flagged</option>
+                                <option value="rejected">rejected</option>
+                                <option value="pending">pending</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="notes">Notes</label>
+                            <input type="text" id="notes" placeholder="optional">
+                        </div>
+
+                        <div class="button-row">
+                            <button type="button" class="pill pill-ghost" onclick="runValidation()">Validate</button>
+                            <button type="button" class="pill pill-solid" onclick="saveEntry()">Save to CSV</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right: actions + output -->
+                <div class="card output-card">
+                    <h2 class="card-title">Output</h2>
+
+                    <div class="button-row">
+                        <button type="button" class="pill pill-ghost" onclick="loadEntries()">Load Entries</button>
+                        <button type="button" class="pill pill-ghost" onclick="findDuplicates()">Find Duplicates</button>
+                    </div>
+
+                    <div id="result-panel" class="result-panel">Ready. Output from the backend appears here.</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================== AUDIO TAB (placeholder) ===================== -->
+        <section id="tab-audio" class="tab-panel">
+            <div class="card placeholder">
+                <span class="card-title">QC Check</span>
+                <p class="muted">Coming next — this tab will call the audio_checker module.</p>
+            </div>
+        </section>
+
+        <!-- ===================== REPORT TAB (placeholder) ===================== -->
+        <section id="tab-report" class="tab-panel">
+            <div class="card placeholder">
+                <span class="card-title">Report</span>
+                <p class="muted">Coming next — this tab will call the report_generator module.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
