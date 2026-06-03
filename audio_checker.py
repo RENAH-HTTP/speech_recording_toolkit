@@ -1,5 +1,4 @@
 from pathlib import Path
-from unittest import result
 from pydub import AudioSegment
 from pydub.silence import detect_leading_silence
 from metadata_manager import validate_file_name
@@ -17,13 +16,16 @@ def read_file_info(path: Path) -> dict:
     }
 
 def check_format_consistency(infos: list[dict]) -> dict:
+    # researched and found that this might be a case worth handling
+    if not infos:
+            return {"consistent": True, "outliers": []}
     reference = infos[0]
     result = {
-        "consistent": ...,
+        "consistent": False,
         "sample_rate": reference["sample_rate"],
         "bit_depth": reference["bit_depth"],
         "channels": reference["channels"],
-        "outliers": [...]
+        "outliers": []
     }
     for info in infos:
         mismatches = []

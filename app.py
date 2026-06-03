@@ -1,3 +1,4 @@
+import webbrowser
 import webview
 from pathlib import Path
 from metadata_manager import (
@@ -40,6 +41,12 @@ class API:
             return {"ok": True, "duplicates": find_duplicates(CSV_PATH)}
         except FileNotFoundError as error:
             return {"ok": False, "message": str(error)}
+
+    def open_url(self, url):
+        # Open external links (e.g. the GitHub repo) in the system browser
+        # rather than navigating inside the app window.
+        webbrowser.open(url)
+        return {"ok": True}
 
 
 if __name__ == "__main__":
