@@ -4,6 +4,8 @@
 
 > Toolkit developed to aid the process of tracking recording data and ensuring the correct format for training speech enhancement models.
 
+> Daily Reports on how I imagined this working and my progress and logic - docuemntation of my process can be fount in the reports folder in this repository.
+
 ---
 
 ## Why this exists
