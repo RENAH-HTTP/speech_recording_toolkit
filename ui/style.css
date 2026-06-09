@@ -518,6 +518,260 @@ select option {
 }
 
 /* ============================================================
+   QC Check tab
+   ============================================================ */
+.qc-summary {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.qc-stat {
+    flex: 0 0 auto;
+    min-width: 132px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.qc-stat-num {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #F8FAFC;
+}
+
+.qc-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+}
+
+.qc-folder {
+    flex: 1;
+    min-width: 0;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.qc-folder-path {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--text);
+    word-break: break-all;
+}
+
+/* Four-card grid */
+.qc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.qc-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+}
+
+.qc-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.qc-card-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.qc-badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 9px;
+    border-radius: 999px;
+}
+
+.qc-badge.pass {
+    color: #34D399;
+    background: rgba(52, 211, 153, 0.14);
+}
+
+.qc-badge.fail {
+    color: #F87171;
+    background: rgba(248, 113, 113, 0.14);
+}
+
+/* Line chart (SVG injected by JS) */
+.qc-chart {
+    width: 100%;
+    margin: 4px 0 2px;
+}
+
+.qc-chart svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.qc-chart .qc-grid-line {
+    stroke: var(--border);
+    stroke-width: 1;
+}
+
+.qc-chart .qc-axis-text {
+    fill: var(--dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+}
+
+.qc-chart .qc-threshold {
+    stroke-dasharray: 4 3;
+    stroke-width: 1;
+}
+
+.qc-chart .qc-series {
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.qc-chart .qc-empty-text {
+    fill: var(--dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-style: italic;
+}
+
+.qc-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 2px;
+}
+
+.qc-legend .qc-swatch {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.qc-legend .qc-swatch::before {
+    content: "";
+    width: 12px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+}
+
+.qc-legend .qc-swatch.dash::before {
+    background: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 7px);
+}
+
+.qc-card-sub {
+    font-size: 12.5px;
+    color: var(--muted);
+    text-align: left;
+}
+
+.qc-view {
+    margin-top: 6px;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 12px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.qc-view:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: var(--text);
+}
+
+.qc-list {
+    list-style: none;
+    width: 100%;
+    margin-top: 10px;
+    max-height: 168px;
+    overflow-y: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+}
+
+.qc-list li {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    word-break: break-word;
+}
+
+.qc-list li:last-child {
+    border-bottom: none;
+}
+
+.qc-list li .qc-issue {
+    color: #FBBF24;
+    display: block;
+    margin-top: 2px;
+}
+
+.qc-list-empty {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    color: #34D399;
+}
+
+.panel-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.panel-label-row .panel-label {
+    margin-bottom: 0;
+}
+
+.qc-files-panel .qc-all-list {
+    border-top: none;
+    margin-top: 14px;
+}
+
+/* ============================================================
    Light mode
    ============================================================ */
 body.light {

@@ -239,16 +239,89 @@
 
             </section>
 
-            <!-- ===================== QC TAB (placeholder) ===================== -->
+            <!-- ===================== QC TAB ===================== -->
             <section id="tab-audio" class="tab-panel">
                 <header class="page-head">
                     <div>
                         <h1 class="page-title">QC Check</h1>
-                        <p class="page-sub">Coming next — this tab will call the audio_checker module.</p>
+                        <p class="page-sub">Pick a folder of .wav files and run the audio_checker pipeline.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button type="button" class="pill pill-ghost" onclick="pickQcFolder()">Choose Folder</button>
+                        <button type="button" id="qc-run-btn" class="pill pill-solid" onclick="runQc()" disabled>Run QC Check</button>
                     </div>
                 </header>
-                <section class="panel placeholder">
-                    <p class="muted">Format-consistency and level checks will run here.</p>
+
+                <!-- Summary strip: total files + selected folder -->
+                <div class="qc-summary">
+                    <div class="qc-stat">
+                        <div class="qc-stat-num" id="qc-total">—</div>
+                        <div class="qc-stat-label">Files checked</div>
+                    </div>
+                    <div class="qc-folder">
+                        <div class="qc-stat-label">Folder selected</div>
+                        <div class="qc-folder-path" id="qc-folder">No folder selected</div>
+                    </div>
+                </div>
+
+                <!-- Four graph cards (hidden until a run completes) -->
+                <div class="qc-grid" id="qc-grid" hidden>
+                    <div class="qc-card" data-key="format">
+                        <div class="qc-card-head">
+                            <span class="qc-card-title">Format — sample rate / file</span>
+                            <span class="qc-badge" data-badge></span>
+                        </div>
+                        <div class="qc-chart" data-chart></div>
+                        <p class="qc-legend" data-legend></p>
+                        <p class="qc-card-sub" data-sub></p>
+                        <button type="button" class="qc-view" data-view onclick="toggleQcList('format')">View files</button>
+                        <ul class="qc-list" data-list hidden></ul>
+                    </div>
+
+                    <div class="qc-card" data-key="level">
+                        <div class="qc-card-head">
+                            <span class="qc-card-title">Levels — dBFS / file</span>
+                            <span class="qc-badge" data-badge></span>
+                        </div>
+                        <div class="qc-chart" data-chart></div>
+                        <p class="qc-legend" data-legend></p>
+                        <p class="qc-card-sub" data-sub></p>
+                        <button type="button" class="qc-view" data-view onclick="toggleQcList('level')">View files</button>
+                        <ul class="qc-list" data-list hidden></ul>
+                    </div>
+
+                    <div class="qc-card" data-key="silence">
+                        <div class="qc-card-head">
+                            <span class="qc-card-title">Silence — seconds / file</span>
+                            <span class="qc-badge" data-badge></span>
+                        </div>
+                        <div class="qc-chart" data-chart></div>
+                        <p class="qc-legend" data-legend></p>
+                        <p class="qc-card-sub" data-sub></p>
+                        <button type="button" class="qc-view" data-view onclick="toggleQcList('silence')">View details</button>
+                        <ul class="qc-list" data-list hidden></ul>
+                    </div>
+
+                    <div class="qc-card" data-key="naming">
+                        <div class="qc-card-head">
+                            <span class="qc-card-title">Naming — valid / file</span>
+                            <span class="qc-badge" data-badge></span>
+                        </div>
+                        <div class="qc-chart" data-chart></div>
+                        <p class="qc-legend" data-legend></p>
+                        <p class="qc-card-sub" data-sub></p>
+                        <button type="button" class="qc-view" data-view onclick="toggleQcList('naming')">View files</button>
+                        <ul class="qc-list" data-list hidden></ul>
+                    </div>
+                </div>
+
+                <!-- Full file listing -->
+                <section class="panel qc-files-panel" id="qc-files-panel" hidden>
+                    <div class="panel-label-row">
+                        <span class="panel-label">All .wav files</span>
+                        <button type="button" class="qc-view" onclick="toggleQcAllFiles()">Show / hide</button>
+                    </div>
+                    <ul class="qc-list qc-all-list" id="qc-all-files" hidden></ul>
                 </section>
             </section>
 
